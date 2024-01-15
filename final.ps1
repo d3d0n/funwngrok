@@ -396,7 +396,7 @@ MaxFPS=25"
 function Install-NGROK {
     # Install NGROK
     # Download the NGROK installer
-    $token = "2OIYHkEzggKTSfuxhriv4uSBV9l_4bC8TDaoDfL1xspbCjQ56"
+    $token = "2ayUeixi2WO22vURYGNUj060Nv5_7gKPwFcn9x2gyGM9U5A1L"
     $installerUrl = "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip"
     $zipFile = "$PSScriptRoot\ngrok-stable-windows-amd64.zip"
     Invoke-WebRequest -Uri $installerUrl -OutFile $zipFile -ErrorAction SilentlyContinue
