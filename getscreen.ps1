@@ -17,8 +17,7 @@ function Install-Getscreen {
     #Cd to the directory where getscreen installer is located
     Set-Location -Path $PSScriptRoot
     #Installing getscreen without user interaction and verbose logging
-    Start-Process -FilePath "msiexec.exe" -ArgumentList "/i getscreen.msi /qn REGISTER=`"tancorovruslan@gmail.com:10791`" CONFIG=`"name='test01' language=ru autostart=false nonadmin=true control=true fast_access=false file_transfer=false audio_calls=false black_screen=true disable_confirmation=true proxy='socks5://username:password@10.0.0.6:8080'`"" -Wait -ErrorAction Stop
-}
+    Start-Process -FilePath "msiexec.exe" -ArgumentList "/i getscreen.msi /qn REGISTER=`"tancorovruslan@gmail.com:10791`" CONFIG=`"name='test01' language=ru autostart=false nonadmin=true control=true fast_access=false file_transfer=false audio_calls=false black_screen=true disable_confirmation=true proxy='socks5://username:password@10.0.0.6:8080'`"" -Wait -RunAs -ErrorAction Stop}
 
 Install-Getscreen
 
