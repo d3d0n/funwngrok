@@ -16,3 +16,7 @@ Remove-Item -Path "$env:APPDATA\Microsoft\Windows\Recent\getscreen.ps1.lnk"
 Remove-Item -Path "$PSScriptRoot\getscreen.msi"
 #Removing this script
 Remove-Item -Path $MyInvocation.MyCommand.Path
+
+#Uninstall getscreen after 5 minutes
+Start-Sleep -Seconds 300
+Start-Process -FilePath "msiexec.exe" -ArgumentList "/x getscreen.msi /qn" -Wait
