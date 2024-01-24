@@ -32,14 +32,8 @@ function Remove-Service {
     }
 }
 
-#Function that configures getscreen
-function Configure-Getscreen {
-    Start-Process -FilePath "C:\Program Files\Getscreen\getscreen.exe" -ArgumentList " -config `"name='Ded' language=ru autostart=false nonadmin=true control=true fast_access=false file_transfer=true audio_calls=false black_screen=true disable_confirmation=true proxy='socks5://username:password@10.0.0.6:8080'`" " -Wait -ErrorAction Stop
-}
-
 Remove-Service -ServiceName "Getscreen" -ErrorAction SilentlyContinue
 Install-Getscreen
-Configure-Getscreen
 
 #Check if getscreen is installed
     if (Test-Path "C:\Program Files\Getscreen\getscreen.exe") {
@@ -50,7 +44,7 @@ Configure-Getscreen
     }
 
 #Uninstall getscreen after 55 minutes
-Start-Sleep -Seconds 100
+Start-Sleep -Seconds 240
 Start-Process -FilePath "C:\Program Files\Getscreen\getscreen.exe" -ArgumentList "-uninstall" -Wait -ErrorAction Stop
 
 #Remove getscreen installer
