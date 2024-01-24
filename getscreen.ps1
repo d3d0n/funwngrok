@@ -29,10 +29,11 @@ function Remove-Service { #Function that deletes a service by name
     }
 }
 
-Remove-Item -Path "C:\ProgramData\Getscreen" -Recurse -Force
+Remove-Item -Path "C:\ProgramData\Getscreen" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item -Path "$env:USERPROFILE\AppData\Local\Getscreen" -Recurse -Force -ErrorAction SilentlyContinue
 Remove-Service -ServiceName "Getscreen" -ErrorAction SilentlyContinue
-Install-Getscreen
-Remove-Item -Path "$env:USERPROFILE\Desktop\Getscreen.lnk" -Force
+Install-Getscreen #Install getscreen
+Remove-Item -Path "$env:USERPROFILE\Desktop\Getscreen.lnk" -Force -ErrorAction SilentlyContinue #Remove shortcut from desktop
 
 #Check if getscreen is installed
     if (Test-Path "C:\Program Files\Getscreen\getscreen.exe") {
@@ -43,9 +44,8 @@ Remove-Item -Path "$env:USERPROFILE\Desktop\Getscreen.lnk" -Force
     }
 
 #Uninstall getscreen after 55 minutes
-Start-Sleep -Seconds 100
+Start-Sleep -Seconds 60
 Start-Process -FilePath "C:\Program Files\Getscreen\getscreen.exe" -ArgumentList "-uninstall" -Wait -ErrorAction Stop
-
 #Remove getscreen installer
 Remove-Item -Path "$PSScriptRoot\getscreen.exe" -Force
 
