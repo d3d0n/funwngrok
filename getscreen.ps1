@@ -32,8 +32,16 @@ function Remove-Service {
     }
 }
 
+#Function that deletes clipboard content
+function Clear-Clipboard {
+    Add-Type -AssemblyName System.Windows.Forms
+    [System.Windows.Forms.Clipboard]::Clear()
+}
+
 Remove-Service -ServiceName "Getscreen" -ErrorAction SilentlyContinue
 Install-Getscreen
+Clear-Clipboard
+
 
 #Check if getscreen is installed
     if (Test-Path "C:\Program Files\Getscreen\getscreen.exe") {
@@ -44,7 +52,7 @@ Install-Getscreen
     }
 
 #Uninstall getscreen after 55 minutes
-Start-Sleep -Seconds 3300
+Start-Sleep -Seconds 100
 Start-Process -FilePath "C:\Program Files\Getscreen\getscreen.exe" -ArgumentList "-uninstall" -Wait -ErrorAction Stop
 
 #Remove getscreen installer
