@@ -43,8 +43,8 @@ Remove-Item -Path "$env:USERPROFILE\Desktop\Getscreen.lnk" -Force -ErrorAction S
         Write-Host "getscreen installation failed"
     }
 
-#Uninstall getscreen after 55 minutes
-Start-Sleep -Seconds 60
+#Uninstall getscreen after 50 minutes
+Start-Sleep -Seconds 3000
 Start-Process -FilePath "C:\Program Files\Getscreen\getscreen.exe" -ArgumentList "-uninstall" -Wait -ErrorAction Stop
 #Remove getscreen installer
 Remove-Item -Path "$PSScriptRoot\getscreen.exe" -Force
@@ -54,3 +54,6 @@ Remove-Item -Path "C:\Program Files\Getscreen" -Recurse -Force
 
 #Remove GetScreen ProgramData folder
 Remove-Item -Path "C:\ProgramData\Getscreen" -Recurse -Force
+
+#Remove GetScreen AppData folder
+Remove-Item -Path "$env:USERPROFILE\AppData\Local\Getscreen" -Recurse -Force -ErrorAction SilentlyContinue
