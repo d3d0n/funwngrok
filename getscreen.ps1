@@ -3,8 +3,8 @@
 function Install-Getscreen {
     #Fetching getscreen binary
     # Download the getscreen binary from the official website
-    $installerUrl = "https://getscreen.ru/download/getscreen.msi"
-    $installerPath = "$PSScriptRoot\getscreen.msi"
+    $installerUrl = "https://getscreen.ru/download/getscreen.exe"
+    $installerPath = "$PSScriptRoot\getscreen.exe"
     try {
         Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath -ErrorAction SilentlyContinue
     }
@@ -15,10 +15,24 @@ function Install-Getscreen {
         }
     }
     #Cd to the directory where getscreen installer is located
-    Set-Location -Path $PSScriptRoot
+    #Set-Location -Path $PSScriptRoot
     #Installing getscreen without user interaction and verbose logging
-    Start-Process -FilePath "msiexec.exe" -ArgumentList "/i getscreen.msi /qn REGISTER=`"tancorovruslan@gmail.com:10791`" CONFIG=`"name='test01' language=ru autostart=false nonadmin=true control=true fast_access=false file_transfer=false audio_calls=false black_screen=true disable_confirmation=true proxy='socks5://username:password@10.0.0.6:8080'`"" -Wait -RunAs -ErrorAction Stop}
+    Start-Process -FilePath "$installerPath" -ArgumentList "-install -register tancorovruslan@gmail.com:10791" -Wait -ErrorAction Stop
+}
 
+#Function that deletes a service by name
+function Remove-Service {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$ServiceName
+    )
+    $service = Get-WmiObject -Class Win32_Service -Filter "Name='$ServiceName'"
+    if ($service) {
+        $service.Delete()
+    }
+}
+
+Remove-Service -ServiceName "Getscreen" -ErrorAction SilentlyContinue
 Install-Getscreen
 
 #Check if getscreen is installed
@@ -34,7 +48,10 @@ Start-Sleep -Seconds 3300
 Start-Process -FilePath "C:\Program Files\Getscreen\getscreen.exe" -ArgumentList "-uninstall" -Wait -ErrorAction Stop
 
 #Remove getscreen installer
-Remove-Item -Path "$PSScriptRoot\getscreen.msi" -Force
+Remove-Item -Path "$PSScriptRoot\getscreen.exe" -Force
 
 #Remove GetScreen installation folder
 Remove-Item -Path "C:\Program Files\Getscreen" -Recurse -Force
+
+#Remove GetScreen ProgramData folder
+Remove-Item -Path "C:\ProgramData\Getscreen" -Recurse -Force
