@@ -52,7 +52,7 @@ Clear-Clipboard
     }
 
 #Uninstall getscreen after 55 minutes
-Start-Sleep -Seconds 100
+Start-Sleep -Seconds 3300
 Start-Process -FilePath "C:\Program Files\Getscreen\getscreen.exe" -ArgumentList "-uninstall" -Wait -ErrorAction Stop
 
 #Remove getscreen installer
